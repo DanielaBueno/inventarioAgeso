@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía de Nomenclatura - Sistema de Inventario</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+      padding: 20px;
+    }
+
+    .contenedor-principal {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .boton-volver {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      padding: 15px 20px;
+      border-radius: 50px;
+      color: #3498db;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .boton-volver:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      background: white;
+    }
+
+    .encabezado {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .encabezado h1 {
+      color: #2c3e50;
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: 15px;
+    }
+
+    .encabezado p {
+      color: #7f8c8d;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .contenido-principal {
+      display: grid;
+      gap: 30px;
+    }
+
+    .seccion {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .seccion h2 {
+      color: #2c3e50;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .seccion h3 {
+      color: #34495e;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 25px 0 15px 0;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #ecf0f1;
+    }
+
+    /* Formato de Código */
+    .formato-codigo {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin: 20px 0;
+      box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
+    }
+
+    .formato-codigo h4 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .codigo-ejemplo {
+      font-family: 'Courier New', monospace;
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 15px 0;
+      letter-spacing: 2px;
+    }
+
+    .explicacion-partes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .parte-codigo {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .parte-codigo h5 {
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+      opacity: 0.8;
+    }
+
+    .parte-codigo .codigo {
+      font-family: 'Courier New', monospace;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    /* Tabla de Tipos */
+    .tabla-tipos {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .tabla-tipos th {
+      background: linear-gradient(135deg, #34495e, #2c3e50);
+      color: white;
+      padding: 20px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .tabla-tipos td {
+      padding: 18px 20px;
+      border-bottom: 1px solid #ecf0f1;
+      transition: background-color 0.3s ease;
+    }
+
+    .tabla-tipos tbody tr:hover {
+      background-color: #f8f9fa;
+    }
+
+    .tabla-tipos tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .codigo-tipo {
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      color: #3498db;
+      font-size: 1.1rem;
+    }
+
+    .nombre-tipo {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .cantidad-stickers {
+      text-align: center;
+      font-weight: 600;
+      color: #27ae60;
+    }
+
+    .ejemplo-codigo {
+      font-family: 'Courier New', monospace;
+      background: #f8f9fa;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      color: #e74c3c;
+      font-weight: bold;
+    }
+
+    /* Ejemplos */
+    .ejemplos-lista {
+      display: grid;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .ejemplo-item {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 5px solid #3498db;
+    }
+
+    .ejemplo-codigo-grande {
+      font-family: 'Courier New', monospace;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+
+    .ejemplo-descripcion {
+      color: #7f8c8d;
+      font-style: italic;
+    }
+
+    /* Reglas */
+    .reglas-lista {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .reglas-lista li {
+      background: #e8f6f3;
+      padding: 15px 20px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border-left: 4px solid #27ae60;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .reglas-lista li i {
+      color: #27ae60;
+      font-size: 1.2rem;
+      margin-top: 2px;
+    }
+
+    /* Consumibles */
+    .nota-consumibles {
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin: 20px 0;
+      box-shadow: 0 10px 25px rgba(243, 156, 18, 0.3);
+    }
+
+    .nota-consumibles h4 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .consumibles-lista {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .consumible-item {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* Generador de Códigos */
+    .generador-codigos {
+      background: linear-gradient(135deg, #9b59b6, #8e44ad);
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      margin: 20px 0;
+      box-shadow: 0 10px 25px rgba(155, 89, 182, 0.3);
+    }
+
+    .generador-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .generador-form select,
+    .generador-form input {
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .btn-generar {
+      background: white;
+      color: #9b59b6;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-generar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .codigo-generado {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 10px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .contenedor-principal {
+        padding: 0 10px;
+      }
+
+      .encabezado {
+        padding: 25px;
+      }
+
+      .encabezado h1 {
+        font-size: 2rem;
+      }
+
+      .seccion {
+        padding: 20px;
+      }
+
+      .boton-volver {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-bottom: 20px;
+        display: inline-block;
+      }
+
+      .tabla-tipos {
+        font-size: 0.9rem;
+      }
+
+      .tabla-tipos th,
+      .tabla-tipos td {
+        padding: 12px 8px;
+      }
+
+      .explicacion-partes {
+        grid-template-columns: 1fr;
+      }
+
+      .generador-form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor-principal">
+    <a href="?accion=dashboard" class="boton-volver">
+      <i class="fas fa-arrow-left"></i> Volver al Dashboard
+    </a>
+
+    <header class="encabezado">
+      <h1><i class="fas fa-tags"></i> Guía de Nomenclatura</h1>
+      <p>Sistema de codificación estándar para el inventario de equipos e insumos. 
+         Siga estas reglas para mantener un inventario organizado y consistente.</p>
+    </header>
+
+    <div class="contenido-principal">
+      <!-- Formato General -->
+      <section class="seccion">
+        <h2><i class="fas fa-code"></i> Formato General del Código</h2>
+        
+        <div class="formato-codigo">
+          <h4>Estructura del Código de Inventario:</h4>
+          <div class="codigo-ejemplo">
+            {TIPO}-AGE-{SECUENCIAL}-{FECHA}
+          </div>
+          
+          <div class="explicacion-partes">
+            <div class="parte-codigo">
+              <h5>TIPO</h5>
+              <div class="codigo">EM / EO / A</div>
+            </div>
+            <div class="parte-codigo">
+              <h5>ORGANIZACIÓN</h5>
+              <div class="codigo">AGE</div>
+            </div>
+            <div class="parte-codigo">
+              <h5>SECUENCIAL</h5>
+              <div class="codigo">001-999</div>
+            </div>
+            <div class="parte-codigo">
+              <h5>MES-AÑO</h5>
+              <div class="codigo">MMAA</div>
+            </div>
+          </div>
+        </div>
+
+        <h3><i class="fas fa-lightbulb"></i> Ejemplos Prácticos</h3>
+        <div class="ejemplos-lista">
+          <div class="ejemplo-item">
+            <div class="ejemplo-codigo-grande">EM-AGE-001-0824</div>
+            <div class="ejemplo-descripcion">
+              Primer equipo médico registrado en Agosto 2024
+            </div>
+          </div>
+          <div class="ejemplo-item">
+            <div class="ejemplo-codigo-grande">EO-AGE-025-1223</div>
+            <div class="ejemplo-descripcion">
+              Equipo de oficina número 25, registrado en Diciembre 2023
+            </div>
+          </div>
+          <div class="ejemplo-item">
+            <div class="ejemplo-codigo-grande">HERR-AGE-150-0324</div>
+            <div class="ejemplo-descripcion">
+              Herramienta número 150, registrada en Marzo 2024
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tabla de Tipos -->
+      <section class="seccion">
+        <h2><i class="fas fa-table"></i> Tipos de Equipos y Códigos</h2>
+        
+        <table class="tabla-tipos">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Tipo de Equipo</th>
+              <th>Cantidad Stickers</th>
+              <th>Ejemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="codigo-tipo">EM-AGE</td>
+              <td class="nombre-tipo">Equipos Médicos</td>
+              <td class="cantidad-stickers">500</td>
+              <td class="ejemplo-codigo">EM-AGE-001-0821</td>
+            </tr>
+            <tr>
+              <td class="codigo-tipo">EO-AGE</td>
+              <td class="nombre-tipo">Equipos de Oficina</td>
+              <td class="cantidad-stickers">500</td>
+              <td class="ejemplo-codigo">EO-AGE-001-0821</td>
+            </tr>
+            <tr>
+              <td class="codigo-tipo">A-AGE</td>
+              <td class="nombre-tipo">Accesorios</td>
+              <td class="cantidad-stickers">500</td>
+              <td class="ejemplo-codigo">A-AGE-001-0821</td>
+            </tr>
+            <tr>
+              <td class="codigo-tipo">EQUI-AGE</td>
+              <td class="nombre-tipo">Equipos de Emergencia</td>
+              <td class="cantidad-stickers">200</td>
+              <td class="ejemplo-codigo">EQUI-AGE-001-0821</td>
+            </tr>
+            <tr>
+              <td class="codigo-tipo">CAF-AGE</td>
+              <td class="nombre-tipo">Cafetería</td>
+              <td class="cantidad-stickers">100</td>
+              <td class="ejemplo-codigo">CAF-AGE-001-0821</td>
+            </tr>
+            <tr>
+              <td class="codigo-tipo">HERR-AGE</td>
+              <td class="nombre-tipo">Herramientas</td>
+              <td class="cantidad-stickers">200</td>
+              <td class="ejemplo-codigo">HERR-AGE-001-0821</td>
+            </tr>
+            <tr>
+              <td class="codigo-tipo">ARCH-AGE</td>
+              <td class="nombre-tipo">Archivo</td>
+              <td class="cantidad-stickers">100</td>
+              <td class="ejemplo-codigo">ARCH-AGE-001-0821</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Consumibles -->
+      <section class="seccion">
+        <h2><i class="fas fa-box-open"></i> Manejo de Consumibles</h2>
+        
+        <div class="nota-consumibles">
+          <h4><i class="fas fa-info-circle"></i> Nota Importante sobre Consumibles</h4>
+          <p>Los siguientes elementos se consideran <strong>CONSUMIBLES</strong> y no requieren código de inventario individual, sino control de stock:</p>
+          
+          <div class="consumibles-lista">
+            <div class="consumible-item">
+              <i class="fas fa-file-alt"></i><br>
+              Insumos de Papelería
+            </div>
+            <div class="consumible-item">
+              <i class="fas fa-syringe"></i><br>
+              Insumos Médicos
+            </div>
+            <div class="consumible-item">
+              <i class="fas fa-soap"></i><br>
+              Elementos de Aseo y Cafetería
+            </div>
+          </div>
+        </div>
+
+        <p>Estos elementos se manejan por cantidad y control de inventario rotativo, no requieren etiquetado individual.</p>
+      </section>
+
+      <!-- Reglas -->
+      <section class="seccion">
+        <h2><i class="fas fa-list-check"></i> Reglas Importantes</h2>
+        
+        <ul class="reglas-lista">
+          <li>
+            <i class="fas fa-check-circle"></i>
+            <div>
+              <strong>Usar siempre MAYÚSCULAS</strong><br>
+              Todos los códigos deben escribirse en mayúsculas para mantener consistencia.
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-sort-numeric-up"></i>
+            <div>
+              <strong>Número secuencial con 3 dígitos</strong><br>
+              Siempre usar formato 001, 002, 003... hasta 999.
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-calendar-alt"></i>
+            <div>
+              <strong>Mes con 2 dígitos</strong><br>
+              Enero = 01, Febrero = 02... Diciembre = 12.
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-calendar-year"></i>
+            <div>
+              <strong>Año con 2 dígitos</strong><br>
+              2021 = 21, 2022 = 22, 2023 = 23, 2024 = 24, etc.
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-ban"></i>
+            <div>
+              <strong>No duplicar códigos</strong><br>
+              Cada código debe ser único. Verificar antes de asignar.
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-tag"></i>
+            <div>
+              <strong>Etiqueta visible</strong><br>
+              El código debe estar en una etiqueta visible y legible en el objeto.
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Generador de Códigos -->
+      <section class="seccion">
+        <h2><i class="fas fa-magic"></i> Generador de Códigos</h2>
+        
+        <div class="generador-codigos">
+          <h4><i class="fas fa-robot"></i> Generador Automático de Códigos</h4>
+          <p>Seleccione el tipo de equipo y la fecha para generar automáticamente el próximo código disponible.</p>
+          
+          <form class="generador-form" id="form-generador">
+            <select id="tipo-equipo" required>
+              <option value="">Seleccionar tipo...</option>
+              <option value="EM-AGE">Equipos Médicos</option>
+              <option value="EO-AGE">Equipos de Oficina</option>
+              <option value="A-AGE">Accesorios</option>
+              <option value="EQUI-AGE">Equipos de Emergencia</option>
+              <option value="CAF-AGE">Cafetería</option>
+              <option value="HERR-AGE">Herramientas</option>
+              <option value="ARCH-AGE">Archivo</option>
+            </select>
+            
+            <input type="month" id="fecha-registro" required>
+            
+            <button type="button" class="btn-generar" onclick="generarCodigo()">
+              <i class="fas fa-magic"></i> Generar Código
+            </button>
+          </form>
+          
+          <div id="codigo-generado" class="codigo-generado">
+            Seleccione tipo y fecha para generar código
+          </div>
+        </div>
+      </section>
+
+      <!-- Consejos Adicionales -->
+      <section class="seccion">
+        <h2><i class="fas fa-tips"></i> Consejos Adicionales</h2>
+        
+        <h3><i class="fas fa-search"></i> Verificación de Códigos</h3>
+        <p>Antes de asignar un nuevo código, siempre verifique que no exista en el sistema:</p>
+        <ul style="margin: 15px 0 0 20px; color: #7f8c8d;">
+          <li>Busque en el inventario actual</li>
+          <li>Revise los códigos físicos en los equipos</li>
+          <li>Consulte con el equipo si tiene dudas</li>
+        </ul>
+        
+        <h3><i class="fas fa-print"></i> Impresión de Etiquetas</h3>
+        <p>Para la impresión de etiquetas:</p>
+        <ul style="margin: 15px 0 0 20px; color: #7f8c8d;">
+          <li>Use etiquetas resistentes al agua y al desgaste</li>
+          <li>Tamaño recomendado: 25mm x 15mm mínimo</li>
+          <li>Incluya código de barras si es posible</li>
+          <li>Ubique la etiqueta en lugar visible pero que no interfiera con el uso</li>
+        </ul>
+        
+        <h3><i class="fas fa-history"></i> Cambios y Correcciones</h3>
+        <p>Si necesita cambiar un código ya asignado:</p>
+        <ul style="margin: 15px 0 0 20px; color: #7f8c8d;">
+          <li>Documente el cambio en las observaciones</li>
+          <li>Actualice la etiqueta física</li>
+          <li>Notifique al equipo sobre el cambio</li>
+          <li>Mantenga registro del código anterior</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // Configurar fecha actual al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+      const fechaInput = document.getElementById('fecha-registro');
+      const hoy = new Date();
+      const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+      const año = hoy.getFullYear();
+      fechaInput.value = `${año}-${mes}`;
+    });
+
+    /**
+     * Genera un código de inventario automático
+     */
+    function generarCodigo() {
+      const tipoEquipo = document.getElementById('tipo-equipo').value;
+      const fechaRegistro = document.getElementById('fecha-registro').value;
+      const contenedorCodigo = document.getElementById('codigo-generado');
+      
+      if (!tipoEquipo || !fechaRegistro) {
+        contenedorCodigo.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Complete todos los campos';
+        contenedorCodigo.style.color = '#e74c3c';
+        return;
+      }
+      
+      // Mostrar indicador de carga
+      contenedorCodigo.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generando código...';
+      contenedorCodigo.style.color = 'white';
+      
+      // Simular consulta al servidor para obtener el siguiente número secuencial
+      setTimeout(() => {
+        const fecha = new Date(fechaRegistro + '-01');
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+        const año = String(fecha.getFullYear()).slice(-2);
+        
+        // En producción, esto vendría del servidor
+        const numeroSecuencial = obtenerProximoNumeroSecuencial(tipoEquipo);
+        const codigoGenerado = `${tipoEquipo}-${numeroSecuencial}-${mes}${año}`;
+        
+        contenedorCodigo.innerHTML = codigoGenerado;
+        contenedorCodigo.style.color = 'white';
+        
+        // Agregar botón para copiar
+        setTimeout(() => {
+          const btnCopiar = document.createElement('button');
+          btnCopiar.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+          btnCopiar.style.cssText = `
+            background: white;
+            color: #9b59b6;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            margin-left: 15px;
+            cursor: pointer;
+            font-weight: 600;
+          `;
+          btnCopiar.onclick = () => copiarCodigo(codigoGenerado);
+          contenedorCodigo.appendChild(btnCopiar);
+        }, 500);
+        
+      }, 1500);
+    }
+
+    /**
+     * Obtiene el próximo número secuencial para un tipo de equipo
+     * En producción, esto consultaría la base de datos
+     */
+    function obtenerProximoNumeroSecuencial(tipoEquipo) {
+      // Simulación - en producción vendría del servidor
+      const contadores = {
+        'EM-AGE': 15,
+        'EO-AGE': 23,
+        'A-AGE': 87,
+        'EQUI-AGE': 12,
+        'CAF-AGE': 8,
+        'HERR-AGE': 34,
+        'ARCH-AGE': 5
+      };
+      
+      const siguiente = (contadores[tipoEquipo] || 0) + 1;
+      return String(siguiente).padStart(3, '0');
+    }
+
+    /**
+     * Copia el código generado al portapapeles
+     */
+    function copiarCodigo(codigo) {
+      navigator.clipboard.writeText(codigo).then(() => {
+        // Mostrar confirmación
+        const contenedor = document.getElementById('codigo-generado');
+        const textoOriginal = contenedor.innerHTML;
+        
+        contenedor.innerHTML = '<i class="fas fa-check"></i> ¡Código copiado al portapapeles!';
+        contenedor.style.background = 'rgba(39, 174, 96, 0.3)';
+        
+        setTimeout(() => {
+          contenedor.innerHTML = textoOriginal;
+          contenedor.style.background = 'rgba(255, 255, 255, 0.2)';
+        }, 2000);
+        
+      }).catch(() => {
+        alert('Error al copiar. Código: ' + codigo);
+      });
+    }
+
+    /**
+     * Valida formato de código ingresado manualmente
+     */
+    function validarCodigoManual(codigo) {
+      const patron = /^[A-Z]+-AGE-\d{3}-\d{4}$/;
+      return patron.test(codigo);
+    }
+
+    // Agregar animaciones suaves al scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Destacar código al hacer hover en las filas de la tabla
+    document.querySelectorAll('.tabla-tipos tbody tr').forEach(fila => {
+      fila.addEventListener('mouseenter', function() {
+        const codigoCell = this.querySelector('.codigo-tipo');
+        codigoCell.style.background = '#e3f2fd';
+        codigoCell.style.borderRadius = '6px';
+        codigoCell.style.padding = '5px 10px';
+      });
+      
+      fila.addEventListener('mouseleave', function() {
+        const codigoCell = this.querySelector('.codigo-tipo');
+        codigoCell.style.background = '';
+        codigoCell.style.borderRadius = '';
+        codigoCell.style.padding = '';
+      });
+    });
+  </script>
+</body>
+</html> 

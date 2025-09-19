@@ -1,0 +1,1538 @@
+    .encabezado {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .encabezado h1 {
+      color: #2c3e50;
+      font-size: 2.2rem;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+
+    .encabezado p {
+      color: #7f8c8d;
+      font-size: 1.1rem;
+    }
+
+    /* Panel de Filtros */
+    .panel-filtros {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .filtros-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .grupo-filtro {
+      position: relative;
+    }
+
+    .grupo-filtro label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+      font-size: 0.9rem;
+    }
+
+    .grupo-filtro input,
+    .grupo-filtro select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #ecf0f1;
+      border-radius: 10px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .grupo-filtro input:focus,
+    .grupo-filtro select:focus {
+      outline: none;
+      border-color: #3498db;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    .busqueda-principal {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .busqueda-principal input {
+      width: 100%;
+      padding: 15px 50px 15px 20px;
+      border: 2px solid #ecf0f1;
+      border-radius: 15px;
+      font-size: 16px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+
+    .busqueda-principal input:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+    }
+
+    .busqueda-principal i {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7f8c8d;
+      font-size: 1.2rem;
+    }
+
+    .botones-filtros {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grupo-botones {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primario {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    }
+
+    .btn-primario:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+    }
+
+    .btn-secundario {
+      background: #ecf0f1;
+      color: #2c3e50;
+    }
+
+    .btn-secundario:hover {
+      background: #d5dbdb;
+      transform: translateY(-2px);
+    }
+
+    .btn-exportar {
+      background: linear-gradient(135deg, #27ae60, #229954);
+      color: white;
+      box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+    }
+
+    .btn-exportar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+    }
+
+    /* Estadísticas */
+    .estadisticas-rapidas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .stat-numero {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #3498db;
+      margin-bottom: 5px;
+    }
+
+    .stat-etiqueta {
+      font-size: 0.9rem;
+      color: #7f8c8d;
+      font-weight: 500;
+    }
+
+    /* Tabla de Resultados */
+    .contenedor-tabla {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .tabla-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 25px;
+      border-bottom: 1px solid #ecf0f1;
+    }
+
+    .tabla-header h3 {
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .vista-controles {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-vista {
+      background: none;
+      border: 2px solid #ecf0f1;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #7f8c8d;
+      transition: all 0.3s ease;
+    }
+
+    .btn-vista.activo {
+      border-color: #3498db;
+      color: #3498db;
+      background: rgba(52, 152, 219, 0.1);
+    }
+
+    .btn-vista:hover {
+      border-color: #3498db;
+      color: #3498db;
+    }
+
+    .tabla-responsive {
+      overflow-x: auto;
+      max-height: 70vh;
+    }
+
+    .tabla-inventario {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .tabla-inventario th {
+      background: #f8f9fa;
+      padding: 15px 12px;
+      text-align: left;
+      font-weight: 600;
+      color: #2c3e50;
+      border-bottom: 2px solid #ecf0f1;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .tabla-inventario td {
+      padding: 15px 12px;
+      border-bottom: 1px solid #ecf0f1;
+      transition: background-color 0.3s ease;
+    }
+
+    .tabla-inventario tbody tr:hover {
+      background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    .badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+      display: inline-block;
+      min-width: 80px;
+    }
+
+    .badge.disponible { background: #d5f4e6; color: #27ae60; }
+    .badge.en-uso { background: #fef9e7; color: #f39c12; }
+    .badge.reparacion { background: #fdeaea; color: #e74c3c; }
+    .badge.baja { background: #eaecee; color: #95a5a6; }
+    .badge.calibrado { background: #d5f4e6; color: #27ae60; }
+    .badge.vencido { background: #fdeaea; color: #e74c3c; }
+    .badge.pendiente { background: #fef9e7; color: #f39c12; }
+    .badge.no-aplica { background: #eaecee; color: #95a5a6; }
+
+    .acciones {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .btn-accion {
+      background: none;
+      border: none;
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #7f8c8d;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .btn-accion:hover {
+      background: #ecf0f1;
+      color: #2c3e50;
+      transform: scale(1.1);
+    }
+
+    .btn-accion.editar:hover { color: #3498db; }
+    .btn-accion.eliminar:hover { color: #e74c3c; }
+    .btn-accion.traslado:hover { color: #f39c12; }
+
+    /* Vista de Tarjetas */
+    .vista-tarjetas {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .tarjeta-objeto {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .tarjeta-objeto:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .tarjeta-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .codigo-objeto {
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #3498db;
+      background: #f8f9fa;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .nombre-objeto {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 10px 0;
+    }
+
+    .info-objeto {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-label {
+      color: #7f8c8d;
+      font-size: 0.8rem;
+      margin-bottom: 2px;
+    }
+
+    .info-value {
+      color: #2c3e50;
+      font-weight: 500;
+    }
+
+    /* Paginación */
+    .paginacion {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 0 0 15px 15px;
+    }
+
+    .btn-pagina {
+      background: none;
+      border: 2px solid #ecf0f1;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #7f8c8d;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .btn-pagina:hover,
+    .btn-pagina.activo {
+      border-color: #3498db;
+      color: #3498db;
+      background: rgba(52, 152, 219, 0.1);
+    }
+
+    .btn-pagina:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .info-paginacion {
+      color: #7f8c8d;
+      font-size: 0.9rem;
+      margin: 0 15px;
+    }
+
+    /* Estados de Carga */
+    .cargando {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      color: #7f8c8d;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ecf0f1;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .sin-resultados {
+      text-align: center;
+      padding: 60px 20px;
+      color: #7f8c8d;
+    }
+
+    .sin-resultados i {
+      font-size: 4rem;
+      color: #ecf0f1;
+      margin-bottom: 20px;
+    }
+
+    .sin-resultados h3 {
+      color: #95a5a6;
+      margin-bottom: 10px;
+    }
+
+    /* Modal de Exportación */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+    }
+
+    .modal-contenido {
+      background: white;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .btn-cerrar {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #7f8c8d;
+      transition: color 0.3s ease;
+    }
+
+    .btn-cerrar:hover {
+      color: #e74c3c;
+    }
+
+    .opciones-exportacion {
+      display: grid;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .opcion-exportacion {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px;
+      border: 2px solid #ecf0f1;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .opcion-exportacion:hover {
+      border-color: #3498db;
+      background: rgba(52, 152, 219, 0.05);
+    }
+
+    .opcion-exportacion input[type="radio"] {
+      margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .contenedor-principal {
+        padding: 0 10px;
+      }
+
+      .boton-volver {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-bottom: 20px;
+        display: inline-block;
+      }
+
+      .filtros-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .botones-filtros {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .grupo-botones {
+        justify-content: space-between;
+      }
+
+      .tabla-inventario {
+        font-size: 0.8rem;
+      }
+
+      .tabla-inventario th,
+      .tabla-inventario td {
+        padding: 10px 8px;
+      }
+
+      .vista-tarjetas {
+        grid-template-columns: 1fr;
+        padding: 15px;
+      }
+
+      .estadisticas-rapidas {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .paginacion {
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+
+      .info-paginacion {
+        order: -1;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor-principal">
+    <a href="?accion=dashboard" class="boton-volver">
+      <i class="fas fa-arrow-left"></i> Volver al Dashboard
+    </a>
+
+    <header class="encabezado">
+      <h1><i class="fas fa-list"></i> Lista de Inventario</h1>
+      <p>Explore, filtre y gestione todos los objetos del inventario</p>
+    </header>
+
+    <!-- Panel de Filtros -->
+    <section class="panel-filtros">
+      <div class="busqueda-principal">
+        <input type="text" id="busqueda-global" placeholder="Buscar por nombre, código, serial o ubicación...">
+        <i class="fas fa-search"></i>
+      </div>
+
+      <div class="filtros-grid">
+        <div class="grupo-filtro">
+          <label for="filtro-estado">Estado</label>
+          <select id="filtro-estado">
+            <option value="">Todos los estados</option>
+            <option value="Disponible">Disponible</option>
+            <option value="En uso">En uso</option>
+            <option value="En reparación">En reparación</option>
+            <option value="Dado de baja">Dado de baja</option>
+          </select>
+        </div>
+
+        <div class="grupo-filtro">
+          <label for="filtro-ubicacion">Ubicación</label>
+          <select id="filtro-ubicacion">
+            <option value="">Todas las ubicaciones</option>
+            <option value="Bodega">Bodega</option>
+            <option value="Consultorio 1">Consultorio 1</option>
+            <option value="Consultorio 2">Consultorio 2</option>
+            <option value="Consultorio 3">Consultorio 3</option>
+            <option value="Laboratorio">Laboratorio</option>
+          </select>
+        </div>
+
+        <div class="grupo-filtro">
+          <label for="filtro-calibracion">Calibración</label>
+          <select id="filtro-calibracion">
+            <option value="">Todos</option>
+            <option value="Calibrado">Calibrado</option>
+            <option value="Vencido">Vencido</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="No aplica">No aplica</option>
+          </select>
+        </div>
+
+        <div class="grupo-filtro">
+          <label for="filtro-tipo">Tipo de Equipo</label>
+          <select id="filtro-tipo">
+            <option value="">Todos los tipos</option>
+            <option value="EM-AGE">Equipos Médicos</option>
+            <option value="EO-AGE">Equipos de Oficina</option>
+            <option value="A-AGE">Accesorios</option>
+            <option value="EQUI-AGE">Equipos de Emergencia</option>
+            <option value="CAF-AGE">Cafetería</option>
+            <option value="HERR-AGE">Herramientas</option>
+            <option value="ARCH-AGE">Archivo</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="botones-filtros">
+        <div class="grupo-botones">
+          <button class="btn btn-primario" onclick="aplicarFiltros()">
+            <i class="fas fa-search"></i> Buscar
+          </button>
+          <button class="btn btn-secundario" onclick="limpiarFiltros()">
+            <i class="fas fa-eraser"></i> Limpiar
+          </button>
+        </div>
+        <div class="grupo-botones">
+          <button class="btn btn-exportar" onclick="abrirModalExportacion()">
+            <i class="fas fa-download"></i> Exportar
+          </button>
+          <button class="btn btn-secundario" onclick="actualizarDatos()">
+            <i class="fas fa-refresh"></i> Actualizar
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Estadísticas Rápidas -->
+    <section class="estadisticas-rapidas">
+      <div class="stat-card">
+        <div class="stat-numero" id="total-objetos">0</div>
+        <div class="stat-etiqueta">Total Objetos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-numero" id="objetos-disponibles">0</div>
+        <div class="stat-etiqueta">Disponibles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-numero" id="objetos-uso">0</div>
+        <div class="stat-etiqueta">En Uso</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-numero" id="calibraciones-vencidas">0</div>
+        <div class="stat-etiqueta">Cal. Vencidas</div>
+      </div>
+    </section>
+
+    <!-- Contenedor de Tabla -->
+    <section class="contenedor-tabla">
+      <div class="tabla-header">
+        <h3>Resultados de Búsqueda</h3>
+        <div class="vista-controles">
+          <button class="btn-vista activo" id="vista-tabla" onclick="cambiarVista('tabla')">
+            <i class="fas fa-table"></i>
+          </button>
+          <button class="btn-vista" id="vista-tarjetas" onclick="cambiarVista('tarjetas')">
+            <i class="fas fa-th"></i>
+          </button>
+          <select id="elementos-por-pagina" onchange="cambiarElementosPorPagina()">
+            <option value="25">25 por página</option>
+            <option value="50">50 por página</option>
+            <option value="100">100 por página</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Vista de Tabla -->
+      <div id="contenido-tabla" class="tabla-responsive">
+        <table class="tabla-inventario">
+          <thead>
+            <tr>
+              <th onclick="ordenarPor('codigoInventario')">
+                Código <i class="fas fa-sort"></i>
+              </th>
+              <th onclick="ordenarPor('nombre')">
+                Nombre <i class="fas fa-sort"></i>
+              </th>
+              <th onclick="ordenarPor('estado')">
+                Estado <i class="fas fa-sort"></i>
+              </th>
+              <th onclick="ordenarPor('ubicacionActual')">
+                Ubicación <i class="fas fa-sort"></i>
+              </th>
+              <th onclick="ordenarPor('estadoCalibracion')">
+                Calibración <i class="fas fa-sort"></i>
+              </th>
+              <th onclick="ordenarPor('fechaActualizacion')">
+                Actualizado <i class="fas fa-sort"></i>
+              </th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-body">
+            <!-- Los datos se cargarán aquí dinámicamente -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Vista de Tarjetas -->
+      <div id="contenido-tarjetas" class="vista-tarjetas" style="display: none;">
+        <!-- Las tarjetas se cargarán aquí dinámicamente -->
+      </div>
+
+      <!-- Estados de Carga -->
+      <div id="estado-cargando" class="cargando">
+        <div class="spinner"></div>
+        <p>Cargando datos del inventario...</p>
+      </div>
+
+      <div id="sin-resultados" class="sin-resultados" style="display: none;">
+        <i class="fas fa-search"></i>
+        <h3>No se encontraron resultados</h3>
+        <p>Intente ajustar los filtros de búsqueda</p>
+      </div>
+
+      <!-- Paginación -->
+      <div class="paginacion">
+        <button class="btn-pagina" id="btn-anterior" onclick="paginaAnterior()">
+          <i class="fas fa-chevron-left"></i> Anterior
+        </button>
+        
+        <div id="numeros-pagina">
+          <!-- Los números de página se generarán aquí -->
+        </div>
+        
+        <button class="btn-pagina" id="btn-siguiente" onclick="paginaSiguiente()">
+          Siguiente <i class="fas fa-chevron-right"></i>
+        </button>
+        
+        <div class="info-paginacion" id="info-paginacion">
+          Mostrando 1-25 de 100 objetos
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal de Exportación -->
+  <div id="modal-exportacion" class="modal">
+    <div class="modal-contenido">
+      <div class="modal-header">
+        <h3>Exportar Inventario</h3>
+        <button class="btn-cerrar" onclick="cerrarModalExportacion()">&times;</button>
+      </div>
+      
+      <div class="opciones-exportacion">
+        <label class="opcion-exportacion">
+          <input type="radio" name="formato-exportacion" value="excel" checked>
+          <div>
+            <i class="fas fa-file-excel" style="color: #27ae60; font-size: 1.5rem;"></i>
+            <div>
+              <strong>Excel (XLSX)</strong><br>
+              <small>Ideal para análisis de datos</small>
+            </div>
+          </div>
+        </label>
+        
+        <label class="opcion-exportacion">
+          <input type="radio" name="formato-exportacion" value="pdf">
+          <div>
+            <i class="fas fa-file-pdf" style="color: #e74c3c; font-size: 1.5rem;"></i>
+            <div>
+              <strong>PDF</strong><br>
+              <small>Para reportes e impresión</small>
+            </div>
+          </div>
+        </label>
+        
+        <label class="opcion-exportacion">
+          <input type="radio" name="formato-exportacion" value="csv">
+          <div>
+            <i class="fas fa-file-csv" style="color: #f39c12; font-size: 1.5rem;"></i>
+            <div>
+              <strong>CSV</strong><br>
+              <small>Compatible con otros sistemas</small>
+            </div>
+          </div>
+        </label>
+      </div>
+      
+      <div style="display: flex; gap: 15px; justify-content: flex-end;">
+        <button class="btn btn-secundario" onclick="cerrarModalExportacion()">
+          Cancelar
+        </button>
+        <button class="btn btn-primario" onclick="exportarDatos()">
+          <i class="fas fa-download"></i> Exportar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Variables globales
+    let datosInventario = [];
+    let datosFiltrados = [];
+    let paginaActual = 1;
+    let elementosPorPagina = 25;
+    let ordenActual = { campo: 'codigoInventario', direccion: 'asc' };
+    let vistaActual = 'tabla';
+
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', function() {
+      configurarEventListeners();
+      cargarDatosInventario();
+    });
+
+    /**
+     * Configura los event listeners
+     */
+    function configurarEventListeners() {
+      // Búsqueda en tiempo real
+      document.getElementById('busqueda-global').addEventListener('input', 
+        debounce(aplicarFiltros, 300));
+      
+      // Filtros
+      document.getElementById('filtro-estado').addEventListener('change', aplicarFiltros);
+      document.getElementById('filtro-ubicacion').addEventListener('change', aplicarFiltros);
+      document.getElementById('filtro-calibracion').addEventListener('change', aplicarFiltros);
+      document.getElementById('filtro-tipo').addEventListener('change', aplicarFiltros);
+    }
+
+    /**
+     * Carga los datos del inventario
+     */
+    function cargarDatosInventario() {
+      mostrarEstadoCarga(true);
+      
+      // Simular carga de datos (en producción sería google.script.run.obtenerTodosLosObjetos)
+      setTimeout(() => {
+        // Datos simulados
+        datosInventario = [
+          {
+            id: 'OBJ_001',
+            codigoInventario: 'EM-AGE-001-0824',
+            nombre: 'Tensiómetro Digital',
+            numeroSerial: 'TD-2024-001',
+            estado: 'Disponible',
+            ubicacionActual: 'Consultorio 1',
+            requiereCalibracion: true,
+            estadoCalibracion: 'Calibrado',
+            fechaUltimaCalibracion: new Date('2024-01-15'),
+            fechaProximaCalibracion: new Date('2025-01-15'),
+            observaciones: 'Equipo en perfecto estado',
+            fechaCreacion: new Date('2024-08-01'),
+            fechaActualizacion: new Date('2024-08-15'),
+            creadoPor: 'admin@tuips.com'
+          },
+          {
+            id: 'OBJ_002',
+            codigoInventario: 'EO-AGE-002-0824',
+            nombre: 'Computador Portátil HP',
+            numeroSerial: 'HP-LAP-2024-002',
+            estado: 'En uso',
+            ubicacionActual: 'Consultorio 2',
+            requiereCalibracion: false,
+            estadoCalibracion: 'No aplica',
+            fechaUltimaCalibracion: null,
+            fechaProximaCalibracion: null,
+            observaciones: 'Asignado al Dr. García',
+            fechaCreacion: new Date('2024-08-02'),
+            fechaActualizacion: new Date('2024-08-20'),
+            creadoPor: 'admin@tuips.com'
+          },
+          {
+            id: 'OBJ_003',
+            codigoInventario: 'EM-AGE-003-0824',
+            nombre: 'Oxímetro de Pulso',
+            numeroSerial: 'OX-2024-003',
+            estado: 'Disponible',
+            ubicacionActual: 'Bodega',
+            requiereCalibracion: true,
+            estadoCalibracion: 'Vencido',
+            fechaUltimaCalibracion: new Date('2023-06-01'),
+            fechaProximaCalibracion: new Date('2024-06-01'),
+            observaciones: 'Requiere calibración urgente',
+            fechaCreacion: new Date('2024-08-03'),
+            fechaActualizacion: new Date('2024-08-03'),
+            creadoPor: 'admin@tuips.com'
+          },
+          {
+            id: 'OBJ_004',
+            codigoInventario: 'A-AGE-004-0824',
+            nombre: 'Cable USB-C',
+            numeroSerial: '',
+            estado: 'Disponible',
+            ubicacionActual: 'Bodega',
+            requiereCalibracion: false,
+            estadoCalibracion: 'No aplica',
+            fechaUltimaCalibracion: null,
+            fechaProximaCalibracion: null,
+            observaciones: 'Pack de 5 cables',
+            fechaCreacion: new Date('2024-08-04'),
+            fechaActualizacion: new Date('2024-08-04'),
+            creadoPor: 'user@tuips.com'
+          },
+          {
+            id: 'OBJ_005',
+            codigoInventario: 'EQUI-AGE-005-0824',
+            nombre: 'Desfibrilador Automático',
+            numeroSerial: 'DEF-2024-005',
+            estado: 'En reparación',
+            ubicacionActual: 'Laboratorio',
+            requiereCalibracion: true,
+            estadoCalibracion: 'Pendiente',
+            fechaUltimaCalibracion: new Date('2024-03-01'),
+            fechaProximaCalibracion: new Date('2025-03-01'),
+            observaciones: 'En mantenimiento preventivo',
+            fechaCreacion: new Date('2024-08-05'),
+            fechaActualizacion: new Date('2024-09-01'),
+            creadoPor: 'admin@tuips.com'
+          }
+        ];
+        
+        // Agregar más datos simulados para demostrar paginación
+        for (let i = 6; i <= 50; i++) {
+          const tipos = ['EM-AGE', 'EO-AGE', 'A-AGE', 'CAF-AGE', 'HERR-AGE'];
+          const estados = ['Disponible', 'En uso', 'En reparación', 'Dado de baja'];
+          const ubicaciones = ['Consultorio 1', 'Consultorio 2', 'Consultorio 3', 'Bodega', 'Laboratorio'];
+          const estadosCalibracion = ['Calibrado', 'Vencido', 'Pendiente', 'No aplica'];
+          
+          const tipoAleatorio = tipos[Math.floor(Math.random() * tipos.length)];
+          const estadoAleatorio = estados[Math.floor(Math.random() * estados.length)];
+          const ubicacionAleatoria = ubicaciones[Math.floor(Math.random() * ubicaciones.length)];
+          
+          datosInventario.push({
+            id: `OBJ_${String(i).padStart(3, '0')}`,
+            codigoInventario: `${tipoAleatorio}-${String(i).padStart(3, '0')}-0824`,
+            nombre: `Equipo de Prueba ${i}`,
+            numeroSerial: `TEST-${i}`,
+            estado: estadoAleatorio,
+            ubicacionActual: ubicacionAleatoria,
+            requiereCalibracion: Math.random() > 0.5,
+            estadoCalibracion: estadosCalibracion[Math.floor(Math.random() * estadosCalibracion.length)],
+            fechaUltimaCalibracion: new Date('2024-01-01'),
+            fechaProximaCalibracion: new Date('2025-01-01'),
+            observaciones: `Observaciones del objeto ${i}`,
+            fechaCreacion: new Date('2024-08-01'),
+            fechaActualizacion: new Date(),
+            creadoPor: 'test@tuips.com'
+          });
+        }
+        
+        mostrarEstadoCarga(false);
+        aplicarFiltros();
+        actualizarEstadisticas();
+      }, 1500);
+    }
+
+    /**
+     * Aplica los filtros seleccionados
+     */
+    function aplicarFiltros() {
+      const textoBusqueda = document.getElementById('busqueda-global').value.toLowerCase();
+      const estado = document.getElementById('filtro-estado').value;
+      const ubicacion = document.getElementById('filtro-ubicacion').value;
+      const calibracion = document.getElementById('filtro-calibracion').value;
+      const tipo = document.getElementById('filtro-tipo').value;
+      
+      datosFiltrados = datosInventario.filter(objeto => {
+        const cumpleTexto = !textoBusqueda || 
+          objeto.nombre.toLowerCase().includes(textoBusqueda) ||
+          objeto.codigoInventario.toLowerCase().includes(textoBusqueda) ||
+          objeto.numeroSerial.toLowerCase().includes(textoBusqueda) ||
+          objeto.ubicacionActual.toLowerCase().includes(textoBusqueda);
+        
+        const cumpleEstado = !estado || objeto.estado === estado;
+        const cumpleUbicacion = !ubicacion || objeto.ubicacionActual === ubicacion;
+        const cumpleCalibracion = !calibracion || objeto.estadoCalibracion === calibracion;
+        const cumpleTipo = !tipo || objeto.codigoInventario.startsWith(tipo);
+        
+        return cumpleTexto && cumpleEstado && cumpleUbicacion && cumpleCalibracion && cumpleTipo;
+      });
+      
+      // Aplicar ordenamiento
+      aplicarOrdenamiento();
+      
+      // Resetear página actual
+      paginaActual = 1;
+      
+      // Mostrar resultados
+      mostrarResultados();
+      actualizarPaginacion();
+    }
+
+    /**
+     * Aplica el ordenamiento actual
+     */
+    function aplicarOrdenamiento() {
+      datosFiltrados.sort((a, b) => {
+        let valorA = a[ordenActual.campo];
+        let valorB = b[ordenActual.campo];
+        
+        // Manejar fechas
+        if (valorA instanceof Date) {
+          valorA = valorA.getTime();
+          valorB = valorB.getTime();
+        } else if (typeof valorA === 'string') {
+          valorA = valorA.toLowerCase();
+          valorB = valorB.toLowerCase();
+        }
+        
+        if (valorA < valorB) return ordenActual.direccion === 'asc' ? -1 : 1;
+        if (valorA > valorB) return ordenActual.direccion === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+
+    /**
+     * Muestra los resultados según la vista actual
+     */
+    function mostrarResultados() {
+      if (datosFiltrados.length === 0) {
+        document.getElementById('sin-resultados').style.display = 'block';
+        document.getElementById('contenido-tabla').style.display = 'none';
+        document.getElementById('contenido-tarjetas').style.display = 'none';
+        return;
+      }
+      
+      document.getElementById('sin-resultados').style.display = 'none';
+      
+      if (vistaActual === 'tabla') {
+        mostrarVistaTabla();
+      } else {
+        mostrarVistaTarjetas();
+      }
+    }
+
+    /**
+     * Muestra la vista de tabla
+     */
+    function mostrarVistaTabla() {
+      document.getElementById('contenido-tabla').style.display = 'block';
+      document.getElementById('contenido-tarjetas').style.display = 'none';
+      
+      const inicio = (paginaActual - 1) * elementosPorPagina;
+      const fin = inicio + elementosPorPagina;
+      const datosPagina = datosFiltrados.slice(inicio, fin);
+      
+      const tbody = document.getElementById('tabla-body');
+      tbody.innerHTML = '';
+      
+      datosPagina.forEach(objeto => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td>
+            <span style="font-family: 'Courier New', monospace; font-weight: bold; color: #3498db;">
+              ${objeto.codigoInventario}
+            </span>
+          </td>
+          <td>
+            <strong>${objeto.nombre}</strong>
+            ${objeto.numeroSerial ? `<br><small style="color: #7f8c8d;">Serial: ${objeto.numeroSerial}</small>` : ''}
+          </td>
+          <td>
+            <span class="badge ${objeto.estado.toLowerCase().replace(' ', '-')}">${objeto.estado}</span>
+          </td>
+          <td>${objeto.ubicacionActual}</td>
+          <td>
+            <span class="badge ${objeto.estadoCalibracion.toLowerCase().replace(' ', '-')}">${objeto.estadoCalibracion}</span>
+          </td>
+          <td>${formatearFecha(objeto.fechaActualizacion)}</td>
+          <td>
+            <div class="acciones">
+              <button class="btn-accion editar" onclick="editarObjeto('${objeto.id}')" title="Editar">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn-accion traslado" onclick="trasladarObjeto('${objeto.id}')" title="Trasladar">
+                <i class="fas fa-exchange-alt"></i>
+              </button>
+              <button class="btn-accion" onclick="verDetalles('${objeto.id}')" title="Ver detalles">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="btn-accion eliminar" onclick="eliminarObjeto('${objeto.id}')" title="Eliminar">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(fila);
+      });
+    }
+
+    /**
+     * Muestra la vista de tarjetas
+     */
+    function mostrarVistaTarjetas() {
+      document.getElementById('contenido-tabla').style.display = 'none';
+      document.getElementById('contenido-tarjetas').style.display = 'grid';
+      
+      const inicio = (paginaActual - 1) * elementosPorPagina;
+      const fin = inicio + elementosPorPagina;
+      const datosPagina = datosFiltrados.slice(inicio, fin);
+      
+      const contenedor = document.getElementById('contenido-tarjetas');
+      contenedor.innerHTML = '';
+      
+      datosPagina.forEach(objeto => {
+        const tarjeta = document.createElement('div');
+        tarjeta.className = 'tarjeta-objeto';
+        tarjeta.onclick = () => verDetalles(objeto.id);
+        
+        tarjeta.innerHTML = `
+          <div class="tarjeta-header">
+            <div class="codigo-objeto">${objeto.codigoInventario}</div>
+            <span class="badge ${objeto.estado.toLowerCase().replace(' ', '-')}">${objeto.estado}</span>
+          </div>
+          
+          <div class="nombre-objeto">${objeto.nombre}</div>
+          
+          <div class="info-objeto">
+            <div class="info-item">
+              <div class="info-label">Ubicación</div>
+              <div class="info-value">${objeto.ubicacionActual}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Calibración</div>
+              <div class="info-value">
+                <span class="badge ${objeto.estadoCalibracion.toLowerCase().replace(' ', '-')}">${objeto.estadoCalibracion}</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Serial</div>
+              <div class="info-value">${objeto.numeroSerial || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Actualizado</div>
+              <div class="info-value">${formatearFecha(objeto.fechaActualizacion)}</div>
+            </div>
+          </div>
+          
+          <div class="acciones" style="margin-top: 15px; justify-content: flex-end;">
+            <button class="btn-accion editar" onclick="event.stopPropagation(); editarObjeto('${objeto.id}')" title="Editar">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn-accion traslado" onclick="event.stopPropagation(); trasladarObjeto('${objeto.id}')" title="Trasladar">
+              <i class="fas fa-exchange-alt"></i>
+            </button>
+            <button class="btn-accion eliminar" onclick="event.stopPropagation(); eliminarObjeto('${objeto.id}')" title="Eliminar">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        `;
+        
+        contenedor.appendChild(tarjeta);
+      });
+    }
+
+    /**
+     * Actualiza las estadísticas
+     */
+    function actualizarEstadisticas() {
+      document.getElementById('total-objetos').textContent = datosInventario.length;
+      document.getElementById('objetos-disponibles').textContent = 
+        datosInventario.filter(obj => obj.estado === 'Disponible').length;
+      document.getElementById('objetos-uso').textContent = 
+        datosInventario.filter(obj => obj.estado === 'En uso').length;
+      document.getElementById('calibraciones-vencidas').textContent = 
+        datosInventario.filter(obj => obj.estadoCalibracion === 'Vencido').length;
+    }
+
+    /**
+     * Actualiza la paginación
+     */
+    function actualizarPaginacion() {
+      const totalPaginas = Math.ceil(datosFiltrados.length / elementosPorPagina);
+      const inicio = (paginaActual - 1) * elementosPorPagina + 1;
+      const fin = Math.min(inicio + elementosPorPagina - 1, datosFiltrados.length);
+      
+      // Actualizar información
+      document.getElementById('info-paginacion').textContent = 
+        `Mostrando ${inicio}-${fin} de ${datosFiltrados.length} objetos`;
+      
+      // Actualizar botones
+      document.getElementById('btn-anterior').disabled = paginaActual <= 1;
+      document.getElementById('btn-siguiente').disabled = paginaActual >= totalPaginas;
+      
+      // Generar números de página
+      const contenedorNumeros = document.getElementById('numeros-pagina');
+      contenedorNumeros.innerHTML = '';
+      
+      const maxPaginasVisible = 5;
+      let inicioRango = Math.max(1, paginaActual - Math.floor(maxPaginasVisible / 2));
+      let finRango = Math.min(totalPaginas, inicioRango + maxPaginasVisible - 1);
+      
+      // Ajustar rango si es necesario
+      if (finRango - inicioRango + 1 < maxPaginasVisible) {
+        inicioRango = Math.max(1, finRango - maxPaginasVisible + 1);
+      }
+      
+      // Botón primera página
+      if (inicioRango > 1) {
+        const btnPrimera = document.createElement('button');
+        btnPrimera.className = 'btn-pagina';
+        btnPrimera.textContent = '1';
+        btnPrimera.onclick = () => irAPagina(1);
+        contenedorNumeros.appendChild(btnPrimera);
+        
+        if (inicioRango > 2) {
+          const puntos = document.createElement('span');
+          puntos.textContent = '...';
+          puntos.style.margin = '0 10px';
+          contenedorNumeros.appendChild(puntos);
+        }
+      }
+      
+      // Números de página
+      for (let i = inicioRango; i <= finRango; i++) {
+        const btnPagina = document.createElement('button');
+        btnPagina.className = `btn-pagina ${i === paginaActual ? 'activo' : ''}`;
+        btnPagina.textContent = i;
+        btnPagina.onclick = () => irAPagina(i);
+        contenedorNumeros.appendChild(btnPagina);
+      }
+      
+      // Botón última página
+      if (finRango < totalPaginas) {
+        if (finRango < totalPaginas - 1) {
+          const puntos = document.createElement('span');
+          puntos.textContent = '...';
+          puntos.style.margin = '0 10px';
+          contenedorNumeros.appendChild(puntos);
+        }
+        
+        const btnUltima = document.createElement('button');
+        btnUltima.className = 'btn-pagina';
+        btnUltima.textContent = totalPaginas;
+        btnUltima.onclick = () => irAPagina(totalPaginas);
+        contenedorNumeros.appendChild(btnUltima);
+      }
+    }
+
+    /**
+     * Ordenar por campo específico
+     */
+    function ordenarPor(campo) {
+      if (ordenActual.campo === campo) {
+        ordenActual.direccion = ordenActual.direccion === 'asc' ? 'desc' : 'asc';
+      } else {
+        ordenActual.campo = campo;
+        ordenActual.direccion = 'asc';
+      }
+      
+      aplicarOrdenamiento();
+      mostrarResultados();
+      actualizarPaginacion();
+    }
+
+    /**
+     * Cambiar vista entre tabla y tarjetas
+     */
+    function cambiarVista(nueva) {
+      vistaActual = nueva;
+      
+      document.getElementById('vista-tabla').classList.toggle('activo', nueva === 'tabla');
+      document.getElementById('vista-tarjetas').classList.toggle('activo', nueva === 'tarjetas');
+      
+      mostrarResultados();
+    }
+
+    /**
+     * Cambiar elementos por página
+     */
+    function cambiarElementosPorPagina() {
+      elementosPorPagina = parseInt(document.getElementById('elementos-por-pagina').value);
+      paginaActual = 1;
+      mostrarResultados();
+      actualizarPaginacion();
+    }
+
+    /**
+     * Ir a página específica
+     */
+    function irAPagina(pagina) {
+      paginaActual = pagina;
+      mostrarResultados();
+      actualizarPaginacion();
+    }
+
+    /**
+     * Página anterior
+     */
+    function paginaAnterior() {
+      if (paginaActual > 1) {
+        irAPagina(paginaActual - 1);
+      }
+    }
+
+    /**
+     * Página siguiente
+     */
+    function paginaSiguiente() {
+      const totalPaginas = Math.ceil(datosFiltrados.length / elementosPorPagina);
+      if (paginaActual < totalPaginas) {
+        irAPagina(paginaActual + 1);
+      }
+    }
+
+    /**
+     * Limpiar todos los filtros
+     */
+    function limpiarFiltros() {
+      document.getElementById('busqueda-global').value = '';
+      document.getElementById('filtro-estado').value = '';
+      document.getElementById('filtro-ubicacion').value = '';
+      document.getElementById('filtro-calibracion').value = '';
+      document.getElementById('filtro-tipo').value = '';
+      
+      aplicarFiltros();
+    }
+
+    /**
+     * Actualizar datos desde servidor
+     */
+    function actualizarDatos() {
+      cargarDatosInventario();
+    }
+
+    /**
+     * Mostrar/ocultar estado de carga
+     */
+    function mostrarEstadoCarga(mostrar) {
+      const estadoCarga = document.getElementById('estado-cargando');
+      const contenidoTabla = document.getElementById('contenido-tabla');
+      const contenidoTarjetas = document.getElementById('contenido-tarjetas');
+      
+      if (mostrar) {
+        estadoCarga.style.display = 'flex';
+        contenidoTabla.style.display = 'none';
+        contenidoTarjetas.style.display = 'none';
+      } else {
+        estadoCarga.style.display = 'none';
+      }
+    }
+
+    /**
+     * Abrir modal de exportación
+     */
+    function abrirModalExportacion() {
+      document.getElementById('modal-exportacion').style.display = 'block';
+    }
+
+    /**
+     * Cerrar modal de exportación
+     */
+    function cerrarModalExportacion() {
+      document.getElementById('modal-exportacion').style.display = 'none';
+    }
+
+    /**
+     * Exportar datos en el formato seleccionado
+     */
+    function exportarDatos() {
+      const formato = document.querySelector('input[name="formato-exportacion"]:checked').value;
+      
+      // Simular exportación
+      alert(`Exportando ${datosFiltrados.length} objetos en formato ${formato.toUpperCase()}...`);
+      
+      // En producción sería google.script.run.exportarInventario(datosFiltrados, formato)
+      
+      cerrarModalExportacion();
+    }
+
+    /**
+     * Acciones de objeto
+     */
+    function editarObjeto(id) {
+      window.location.href = `?accion=editar&id=${id}`;
+    }
+
+    function trasladarObjeto(id) {
+      window.location.href = `?accion=traslados&objeto=${id}`;
+    }
+
+    function verDetalles(id) {
+      window.location.href = `?accion=detalle&id=${id}`;
+    }
+
+    function eliminarObjeto(id) {
+      if (confirm('¿Está seguro de que desea eliminar este objeto del inventario?')) {
+        // En producción sería google.script.run.eliminarObjetoInventario(id)
+        alert('Objeto eliminado (simulación)');
+        cargarDatosInventario();
+      }
+    }
+
+    /**
+     * Formatear fecha
+     */
+    function formatearFecha(fecha) {
+      const opciones = { 
+        day: '2-digit', 
+        month: '2-digit', 
+        year: 'numeric'
+      };
+      return new Date(fecha).toLocaleDateString('es-CO', opciones);
+    }
+
+    /**
+     * Debounce para optimizar búsquedas
+     */
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    // Cerrar modal al hacer clic fuera
+    window.onclick = function(event) {
+      const modal = document.getElementById('modal-exportacion');
+      if (event.target === modal) {
+        cerrarModalExportacion();
+      }
+    }
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Inventario - Sistema de Inventario</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+      padding: 20px;
+    }
+
+    .contenedor-principal {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .boton-volver {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      padding: 15px 20px;
+      border-radius: 50px;
+      color: #3498db;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .boton-volver:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      background: white;
+    }
+
+    .encabezado {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .enc

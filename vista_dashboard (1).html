@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Inventario - Dashboard</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .contenedor-principal {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .encabezado {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .encabezado h1 {
+      color: #2c3e50;
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+
+    .encabezado p {
+      color: #7f8c8d;
+      font-size: 1.1rem;
+    }
+
+    .menu-navegacion {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .boton-menu {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: none;
+      border-radius: 15px;
+      padding: 25px;
+      text-decoration: none;
+      color: #2c3e50;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .boton-menu:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 1);
+    }
+
+    .boton-menu i {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .boton-menu h3 {
+      font-size: 1.3rem;
+      margin-bottom: 5px;
+    }
+
+    .boton-menu p {
+      font-size: 0.9rem;
+      color: #7f8c8d;
+      text-align: center;
+    }
+
+    .btn-agregar { color: #27ae60; }
+    .btn-inventario { color: #3498db; }
+    .btn-traslados { color: #e74c3c; }
+    .btn-nomenclatura { color: #f39c12; }
+
+    .seccion-estadisticas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .tarjeta-estadistica {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .tarjeta-estadistica h3 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .estadistica-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #ecf0f1;
+    }
+
+    .estadistica-item:last-child {
+      border-bottom: none;
+    }
+
+    .badge {
+      background: #3498db;
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .badge.disponible { background: #27ae60; }
+    .badge.en-uso { background: #f39c12; }
+    .badge.reparacion { background: #e74c3c; }
+    .badge.baja { background: #95a5a6; }
+    .badge.vencido { background: #e74c3c; }
+    .badge.proximo { background: #f39c12; }
+
+    .seccion-objetos-recientes {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .tabla-responsive {
+      overflow-x: auto;
+    }
+
+    .tabla-objetos {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .tabla-objetos th,
+    .tabla-objetos td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ecf0f1;
+    }
+
+    .tabla-objetos th {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .tabla-objetos tbody tr:hover {
+      background: #f8f9fa;
+    }
+
+    .alerta-calibracion {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(238, 90, 82, 0.3);
+    }
+
+    .alerta-calibracion h4 {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Estilos responsivos */
+    @media (max-width: 768px) {
+      .contenedor-principal {
+        padding: 15px;
+      }
+
+      .encabezado h1 {
+        font-size: 2rem;
+      }
+
+      .menu-navegacion {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+
+      .seccion-estadisticas {
+        grid-template-columns: 1fr;
+      }
+
+      .tabla-objetos {
+        font-size: 0.9rem;
+      }
+
+      .boton-menu {
+        padding: 20px 15px;
+      }
+    }
+
+    .cargando {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor-principal">
+    <!-- Encabezado -->
+    <header class="encabezado">
+      <h1><i class="fas fa-boxes"></i> Sistema de Inventario</h1>
+      <p>Gestión integral de equipos e insumos</p>
+    </header>
+
+    <!-- Alertas de Calibración -->
+    <div id="alertas-calibracion"></div>
+
+    <!-- Menú de Navegación -->
+    <nav class="menu-navegacion">
+      <a href="?accion=agregar" class="boton-menu btn-agregar">
+        <i class="fas fa-plus-circle"></i>
+        <div>
+          <h3>Agregar Objeto</h3>
+          <p>Registrar nuevo equipo o insumo</p>
+        </div>
+      </a>
+
+      <button onclick="mostrarBuscador()" class="boton-menu btn-inventario">
+        <i class="fas fa-search"></i>
+        <div>
+          <h3>Buscar en Inventario</h3>
+          <p>Consultar y editar objetos</p>
+        </div>
+      </button>
+
+      <a href="?accion=traslados" class="boton-menu btn-traslados">
+        <i class="fas fa-exchange-alt"></i>
+        <div>
+          <h3>Registrar Traslado</h3>
+          <p>Mover objetos entre ubicaciones</p>
+        </div>
+      </a>
+
+      <a href="?accion=nomenclatura" class="boton-menu btn-nomenclatura">
+        <i class="fas fa-tags"></i>
+        <div>
+          <h3>Guía de Nomenclatura</h3>
+          <p>Códigos y etiquetas</p>
+        </div>
+      </a>
+    </nav>
+
+    <!-- Estadísticas -->
+    <section class="seccion-estadisticas">
+      <div class="tarjeta-estadistica">
+        <h3><i class="fas fa-chart-bar"></i> Resumen por Estado</h3>
+        <div id="estadisticas-estado">
+          <div class="cargando">
+            <div class="spinner"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tarjeta-estadistica">
+        <h3><i class="fas fa-map-marker-alt"></i> Objetos por Ubicación</h3>
+        <div id="estadisticas-ubicacion">
+          <div class="cargando">
+            <div class="spinner"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tarjeta-estadistica">
+        <h3><i class="fas fa-tools"></i> Estado de Calibración</h3>
+        <div id="estadisticas-calibracion">
+          <div class="cargando">
+            <div class="spinner"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Objetos Recientes -->
+    <section class="seccion-objetos-recientes">
+      <h3><i class="fas fa-clock"></i> Objetos Recientes</h3>
+      <div class="tabla-responsive">
+        <table class="tabla-objetos">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Nombre</th>
+              <th>Estado</th>
+              <th>Ubicación</th>
+              <th>Calibración</th>
+              <th>Actualizado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-objetos-recientes">
+            <tr>
+              <td colspan="7" class="cargando">
+                <div class="spinner"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal de Búsqueda -->
+  <div id="modal-busqueda" style="display: none;">
+    <div class="modal-contenido">
+      <span class="cerrar" onclick="cerrarBuscador()">&times;</span>
+      <h2>Buscar Objetos</h2>
+      <form id="formulario-busqueda">
+        <div class="grupo-campo">
+          <label>Buscar por texto:</label>
+          <input type="text" id="texto-busqueda" placeholder="Nombre, código o serial...">
+        </div>
+        <div class="grupo-campo">
+          <label>Estado:</label>
+          <select id="filtro-estado">
+            <option value="Todos">Todos</option>
+            <option value="Disponible">Disponible</option>
+            <option value="En uso">En uso</option>
+            <option value="En reparación">En reparación</option>
+            <option value="Dado de baja">Dado de baja</option>
+          </select>
+        </div>
+        <div class="grupo-campo">
+          <label>Ubicación:</label>
+          <select id="filtro-ubicacion">
+            <option value="Todas">Todas</option>
+          </select>
+        </div>
+        <button type="submit">Buscar</button>
+      </form>
+      <div id="resultados-busqueda"></div>
+    </div>
+  </div>
+
+  <script>
+    // Variables globales
+    let datosResumen = null;
+    let objetosRecientes = null;
+
+    // Cargar datos al inicio
+    document.addEventListener('DOMContentLoaded', function() {
+      cargarDatosIniciales();
+    });
+
+    /**
+     * Carga los datos iniciales del dashboard
+     */
+    function cargarDatosIniciales() {
+      // Simular carga de datos (en producción se llamaría a funciones de Apps Script)
+      setTimeout(() => {
+        cargarEstadisticas();
+        cargarObjetosRecientes();
+        verificarCalibraciones();
+      }, 1000);
+    }
+
+    /**
+     * Carga las estadísticas del inventario
+     */
+    function cargarEstadisticas() {
+      // Datos simulados - en producción vendría de obtenerResumenInventario()
+      const estadisticas = {
+        porEstado: {
+          'Disponible': 45,
+          'En uso': 28,
+          'En reparación': 7,
+          'Dado de baja': 3
+        },
+        porUbicacion: {
+          'Consultorio 1': 25,
+          'Consultorio 2': 22,
+          'Bodega': 18,
+          'Laboratorio': 15,
+          'Consultorio 3': 3
+        },
+        calibracionVencida: 5,
+        calibracionProxima: 8
+      };
+
+      mostrarEstadisticasEstado(estadisticas.porEstado);
+      mostrarEstadisticasUbicacion(estadisticas.porUbicacion);
+      mostrarEstadisticasCalibracion(estadisticas);
+    }
+
+    /**
+     * Muestra estadísticas por estado
+     */
+    function mostrarEstadisticasEstado(datos) {
+      const contenedor = document.getElementById('estadisticas-estado');
+      let html = '';
+
+      for (const [estado, cantidad] of Object.entries(datos)) {
+        const claseEstado = estado.toLowerCase().replace(' ', '-');
+        html += `
+          <div class="estadistica-item">
+            <span>${estado}</span>
+            <span class="badge ${claseEstado}">${cantidad}</span>
+          </div>
+        `;
+      }
+
+      contenedor.innerHTML = html;
+    }
+
+    /**
+     * Muestra estadísticas por ubicación
+     */
+    function mostrarEstadisticasUbicacion(datos) {
+      const contenedor = document.getElementById('estadisticas-ubicacion');
+      let html = '';
+
+      for (const [ubicacion, cantidad] of Object.entries(datos)) {
+        html += `
+          <div class="estadistica-item">
+            <span>${ubicacion}</span>
+            <span class="badge">${cantidad}</span>
+          </div>
+        `;
+      }
+
+      contenedor.innerHTML = html;
+    }
+
+    /**
+     * Muestra estadísticas de calibración
+     */
+    function mostrarEstadisticasCalibracion(datos) {
+      const contenedor = document.getElementById('estadisticas-calibracion');
+      const html = `
+        <div class="estadistica-item">
+          <span>Calibración Vencida</span>
+          <span class="badge vencido">${datos.calibracionVencida}</span>
+        </div>
+        <div class="estadistica-item">
+          <span>Próxima a Vencer</span>
+          <span class="badge proximo">${datos.calibracionProxima}</span>
+        </div>
+      `;
+
+      contenedor.innerHTML = html;
+    }
+
+    /**
+     * Carga los objetos recientes
+     */
+    function cargarObjetosRecientes() {
+      // Datos simulados
+      const objetos = [
+        {
+          id: 'OBJ_001',
+          codigoInventario: 'EM-AGE-001-0824',
+          nombre: 'Tensiómetro Digital',
+          estado: 'Disponible',
+          ubicacionActual: 'Consultorio 1',
+          estadoCalibracion: 'Calibrado',
+          fechaActualizacion: new Date()
+        },
+        {
+          id: 'OBJ_002',
+          codigoInventario: 'EO-AGE-002-0824',
+          nombre: 'Computador Portátil',
+          estado: 'En uso',
+          ubicacionActual: 'Consultorio 2',
+          estadoCalibracion: 'No aplica',
+          fechaActualizacion: new Date(Date.now() - 86400000)
+        },
+        {
+          id: 'OBJ_003',
+          codigoInventario: 'EM-AGE-003-0824',
+          nombre: 'Oxímetro',
+          estado: 'Disponible',
+          ubicacionActual: 'Bodega',
+          estadoCalibracion: 'Vencido',
+          fechaActualizacion: new Date(Date.now() - 172800000)
+        }
+      ];
+
+      mostrarObjetosRecientes(objetos);
+    }
+
+    /**
+     * Muestra la tabla de objetos recientes
+     */
+    function mostrarObjetosRecientes(objetos) {
+      const tbody = document.getElementById('tabla-objetos-recientes');
+      let html = '';
+
+      objetos.forEach(objeto => {
+        const fechaFormateada = formatearFecha(objeto.fechaActualizacion);
+        const claseEstado = objeto.estado.toLowerCase().replace(' ', '-');
+        const claseCalibracion = objeto.estadoCalibracion.toLowerCase().replace(' ', '-');
+
+        html += `
+          <tr>
+            <td><strong>${objeto.codigoInventario}</strong></td>
+            <td>${objeto.nombre}</td>
+            <td><span class="badge ${claseEstado}">${objeto.estado}</span></td>
+            <td>${objeto.ubicacionActual}</td>
+            <td><span class="badge ${claseCalibracion}">${objeto.estadoCalibracion}</span></td>
+            <td>${fechaFormateada}</td>
+            <td>
+              <button onclick="editarObjeto('${objeto.id}')" class="btn-accion">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button onclick="verDetalles('${objeto.id}')" class="btn-accion">
+                <i class="fas fa-eye"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    /**
+     * Verifica calibraciones vencidas y muestra alertas
+     */
+    function verificarCalibraciones() {
+      const contenedorAlertas = document.getElementById('alertas-calibracion');
+      
+      // Simular verificación de calibraciones
+      const calibracionesVencidas = 5;
+      const calibracionesProximas = 8;
+
+      if (calibracionesVencidas > 0 || calibracionesProximas > 0) {
+        let html = `
+          <div class="alerta-calibracion">
+            <h4><i class="fas fa-exclamation-triangle"></i> Atención: Estado de Calibraciones</h4>
+            <p>
+              ${calibracionesVencidas > 0 ? `• ${calibracionesVencidas} equipos con calibración vencida` : ''}
+              ${calibracionesProximas > 0 ? `• ${calibracionesProximas} equipos próximos a vencer calibración` : ''}
+            </p>
+          </div>
+        `;
+        contenedorAlertas.innerHTML = html;
+      }
+    }
+
+    /**
+     * Muestra el modal de búsqueda
+     */
+    function mostrarBuscador() {
+      document.getElementById('modal-busqueda').style.display = 'block';
+      cargarOpcionesBusqueda();
+    }
+
+    /**
+     * Cierra el modal de búsqueda
+     */
+    function cerrarBuscador() {
+      document.getElementById('modal-busqueda').style.display = 'none';
+    }
+
+    /**
+     * Carga las opciones para los filtros de búsqueda
+     */
+    function cargarOpcionesBusqueda() {
+      const selectUbicacion = document.getElementById('filtro-ubicacion');
+      const ubicaciones = ['Bodega', 'Consultorio 1', 'Consultorio 2', 'Consultorio 3', 'Laboratorio'];
+      
+      let html = '<option value="Todas">Todas</option>';
+      ubicaciones.forEach(ubicacion => {
+        html += `<option value="${ubicacion}">${ubicacion}</option>`;
+      });
+      
+      selectUbicacion.innerHTML = html;
+    }
+
+    /**
+     * Edita un objeto específico
+     */
+    function editarObjeto(objetoId) {
+      window.location.href = `?accion=editar&id=${objetoId}`;
+    }
+
+    /**
+     * Ver detalles de un objeto
+     */
+    function verDetalles(objetoId) {
+      // Implementar modal de detalles
+      alert(`Ver detalles del objeto: ${objetoId}`);
+    }
+
+    /**
+     * Formatea una fecha para mostrar
+     */
+    function formatearFecha(fecha) {
+      const opciones = { 
+        day: '2-digit', 
+        month: '2-digit', 
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      };
+      return new Date(fecha).toLocaleDateString('es-CO', opciones);
+    }
+
+    // Manejador del formulario de búsqueda
+    document.getElementById('formulario-busqueda').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const criterios = {
+        texto: document.getElementById('texto-busqueda').value,
+        estado: document.getElementById('filtro-estado').value,
+        ubicacion: document.getElementById('filtro-ubicacion').value
+      };
+      
+      realizarBusqueda(criterios);
+    });
+
+    /**
+     * Realiza la búsqueda con los criterios especificados
+     */
+    function realizarBusqueda(criterios) {
+      const contenedorResultados = document.getElementById('resultados-busqueda');
+      contenedorResultados.innerHTML = '<div class="cargando"><div class="spinner"></div></div>';
+      
+      // Simular búsqueda
+      setTimeout(() => {
+        // En producción llamaría a google.script.run.buscarObjetos(criterios)
+        const resultados = [
+          {
+            id: 'OBJ_001',
+            codigoInventario: 'EM-AGE-001-0824',
+            nombre: 'Tensiómetro Digital',
+            estado: 'Disponible',
+            ubicacionActual: 'Consultorio 1'
+          }
+        ];
+        
+        mostrarResultadosBusqueda(resultados);
+      }, 1000);
+    }
+
+    /**
+     * Muestra los resultados de búsqueda
+     */
+    function mostrarResultadosBusqueda(resultados) {
+      const contenedor = document.getElementById('resultados-busqueda');
+      
+      if (resultados.length === 0) {
+        contenedor.innerHTML = '<p>No se encontraron objetos con los criterios especificados.</p>';
+        return;
+      }
+      
+      let html = '<h3>Resultados de Búsqueda:</h3><div class="lista-resultados">';
+      
+      resultados.forEach(objeto => {
+        html += `
+          <div class="item-resultado">
+            <h4>${objeto.nombre}</h4>
+            <p><strong>Código:</strong> ${objeto.codigoInventario}</p>
+            <p><strong>Estado:</strong> ${objeto.estado}</p>
+            <p><strong>Ubicación:</strong> ${objeto.ubicacionActual}</p>
+            <div class="acciones-resultado">
+              <button onclick="editarObjeto('${objeto.id}')" class="btn-secundario">Editar</button>
+              <button onclick="verDetalles('${objeto.id}')" class="btn-primario">Ver Detalles</button>
+            </div>
+          </div>
+        `;
+      });
+      
+      html += '</div>';
+      contenedor.innerHTML = html;
+    }
+
+    // Cerrar modal al hacer clic fuera de él
+    window.onclick = function(event) {
+      const modal = document.getElementById('modal-busqueda');
+      if (event.target === modal) {
+        cerrarBuscador();
+      }
+    }
+  </script>
+
+  <style>
+    /* Estilos adicionales para el modal y botones */
+    #modal-busqueda {
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-contenido {
+      background: white;
+      margin: 5% auto;
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .cerrar {
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .cerrar:hover,
+    .cerrar:focus {
+      color: #e74c3c;
+    }
+
+    .grupo-campo {
+      margin-bottom: 20px;
+    }
+
+    .grupo-campo label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .grupo-campo input,
+    .grupo-campo select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ecf0f1;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .grupo-campo input:focus,
+    .grupo-campo select:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+
+    button[type="submit"] {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    button[type="submit"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+    }
+
+    .btn-accion {
+      background: none;
+      border: none;
+      padding: 8px;
+      margin: 0 5px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #7f8c8d;
+    }
+
+    .btn-accion:hover {
+      background: #ecf0f1;
+      color: #2c3e50;
+      transform: scale(1.1);
+    }
+
+    .lista-resultados {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-top: 20px;
+    }
+
+    .item-resultado {
+      background: #f8f9fa;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border-left: 4px solid #3498db;
+    }
+
+    .item-resultado h4 {
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+
+    .item-resultado p {
+      margin: 5px 0;
+      color: #7f8c8d;
+    }
+
+    .acciones-resultado {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-primario,
+    .btn-secundario {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primario {
+      background: #3498db;
+      color: white;
+    }
+
+    .btn-secundario {
+      background: #ecf0f1;
+      color: #2c3e50;
+    }
+
+    .btn-primario:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    .btn-secundario:hover {
+      background: #d5dbdb;
+      transform: translateY(-2px);
+    }
+
+    /* Estilos responsivos adicionales */
+    @media (max-width: 768px) {
+      .modal-contenido {
+        margin: 10% auto;
+        padding: 20px;
+        width: 95%;
+      }
+
+      .acciones-resultado {
+        flex-direction: column;
+      }
+
+      .btn-primario,
+      .btn-secundario {
+        width: 100%;
+      }
+    }
+  </style>
+</body>
+</html>

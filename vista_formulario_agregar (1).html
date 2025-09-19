@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agregar Objeto - Sistema de Inventario</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+      padding: 20px;
+    }
+
+    .contenedor-principal {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .encabezado {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .encabezado h1 {
+      color: #2c3e50;
+      font-size: 2.2rem;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+
+    .encabezado p {
+      color: #7f8c8d;
+      font-size: 1.1rem;
+    }
+
+    .boton-volver {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      padding: 15px 20px;
+      border-radius: 50px;
+      color: #3498db;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .boton-volver:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      background: white;
+    }
+
+    .formulario-contenedor {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .formulario-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .grupo-campo {
+      margin-bottom: 25px;
+    }
+
+    .grupo-campo.span-2 {
+      grid-column: span 2;
+    }
+
+    .grupo-campo label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+      font-size: 1rem;
+    }
+
+    .campo-obligatorio {
+      color: #e74c3c;
+    }
+
+    .grupo-campo input,
+    .grupo-campo select,
+    .grupo-campo textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #ecf0f1;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .grupo-campo input:focus,
+    .grupo-campo select:focus,
+    .grupo-campo textarea:focus {
+      outline: none;
+      border-color: #3498db;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    .grupo-campo textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .checkbox-grupo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      border: 2px solid #ecf0f1;
+      transition: all 0.3s ease;
+    }
+
+    .checkbox-grupo:hover {
+      background: #e9ecef;
+    }
+
+    .checkbox-grupo input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .checkbox-grupo label {
+      margin: 0;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .campos-calibracion {
+      display: none;
+      padding: 20px;
+      background: #e8f4f8;
+      border-radius: 12px;
+      border-left: 4px solid #3498db;
+      margin-top: 15px;
+    }
+
+    .campos-calibracion.activo {
+      display: block;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .ayuda-texto {
+      font-size: 0.9rem;
+      color: #7f8c8d;
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .seccion-fotos {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 25px;
+      margin: 25px 0;
+      border: 2px dashed #dee2e6;
+      text-align: center;
+    }
+
+    .zona-subida {
+      padding: 30px;
+      border: 2px dashed #3498db;
+      border-radius: 12px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .zona-subida:hover {
+      background: #f8f9fa;
+      border-color: #2980b9;
+    }
+
+    .zona-subida i {
+      font-size: 3rem;
+      color: #3498db;
+      margin-bottom: 15px;
+    }
+
+    .previsualizacion-fotos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .foto-preview {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .foto-preview img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .btn-eliminar-foto {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-eliminar-foto:hover {
+      background: #c0392b;
+      transform: scale(1.1);
+    }
+
+    .botones-formulario {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 150px;
+      justify-content: center;
+    }
+
+    .btn-primario {
+      background: linear-gradient(135deg, #27ae60, #229954);
+      color: white;
+      box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+    }
+
+    .btn-primario:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
+    }
+
+    .btn-secundario {
+      background: #ecf0f1;
+      color: #2c3e50;
+    }
+
+    .btn-secundario:hover {
+      background: #d5dbdb;
+      transform: translateY(-2px);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .mensaje-exito {
+      background: linear-gradient(135deg, #27ae60, #229954);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: none;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+    }
+
+    .mensaje-error {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: none;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+    }
+
+    .cargando {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Estilos responsivos */
+    @media (max-width: 768px) {
+      .contenedor-principal {
+        padding: 0 10px;
+      }
+
+      .formulario-contenedor {
+        padding: 25px;
+      }
+
+      .formulario-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .grupo-campo.span-2 {
+        grid-column: span 1;
+      }
+
+      .botones-formulario {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        min-width: auto;
+      }
+
+      .boton-volver {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-bottom: 20px;
+        display: inline-block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor-principal">
+    <a href="?accion=dashboard" class="boton-volver">
+      <i class="fas fa-arrow-left"></i> Volver al Dashboard
+    </a>
+
+    <header class="encabezado">
+      <h1><i class="fas fa-plus-circle"></i> Agregar Nuevo Objeto</h1>
+      <p>Complete los siguientes campos para registrar un nuevo objeto en el inventario</p>
+    </header>
+
+    <div class="formulario-contenedor">
+      <!-- Mensajes -->
+      <div id="mensaje-exito" class="mensaje-exito">
+        <i class="fas fa-check-circle"></i> Objeto agregado exitosamente
+      </div>
+      
+      <div id="mensaje-error" class="mensaje-error">
+        <i class="fas fa-exclamation-triangle"></i> <span id="texto-error"></span>
+      </div>
+
+      <div id="indicador-cargando" class="cargando">
+        <div class="spinner"></div>
+        <p>Guardando objeto...</p>
+      </div>
+
+      <form id="formulario-agregar-objeto">
+        <div class="formulario-grid">
+          <!-- Información Básica -->
+          <div class="grupo-campo">
+            <label for="nombre">
+              Nombre del Objeto <span class="campo-obligatorio">*</span>
+            </label>
+            <input type="text" id="nombre" name="nombre" required 
+                   placeholder="Ej: Tensiómetro Digital">
+            <div class="ayuda-texto">
+              <i class="fas fa-info-circle"></i>
+              Nombre descriptivo del objeto
+            </div>
+          </div>
+
+          <div class="grupo-campo">
+            <label for="codigoInventario">
+              Código de Inventario <span class="campo-obligatorio">*</span>
+            </label>
+            <input type="text" id="codigoInventario" name="codigoInventario" required 
+                   placeholder="EM-AGE-001-0824" style="text-transform: uppercase">
+            <div class="ayuda-texto">
+              <i class="fas fa-info-circle"></i>
+              Siga la guía de nomenclatura
+            </div>
+          </div>
+
+          <div class="grupo-campo">
+            <label for="numeroSerial">Número Serial</label>
+            <input type="text" id="numeroSerial" name="numeroSerial" 
+                   placeholder="Opcional">
+            <div class="ayuda-texto">
+              <i class="fas fa-info-circle"></i>
+              Serial del fabricante (si aplica)
+            </div>
+          </div>
+
+          <div class="grupo-campo">
+            <label for="estado">
+              Estado <span class="campo-obligatorio">*</span>
+            </label>
+            <select id="estado" name="estado" required>
+              <option value="Disponible">Disponible</option>
+              <option value="En uso">En uso</option>
+              <option value="En reparación">En reparación</option>
+              <option value="Dado de baja">Dado de baja</option>
+            </select>
+          </div>
+
+          <div class="grupo-campo span-2">
+            <label for="ubicacionActual">
+              Ubicación Actual <span class="campo-obligatorio">*</span>
+            </label>
+            <select id="ubicacionActual" name="ubicacionActual" required>
+              <option value="">Seleccione ubicación...</option>
+              <option value="Bodega">Bodega</option>
+              <option value="Consultorio 1">Consultorio 1</option>
+              <option value="Consultorio 2">Consultorio 2</option>
+              <option value="Consultorio 3">Consultorio 3</option>
+              <option value="Laboratorio">Laboratorio</option>
+              <option value="Recepción">Recepción</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Calibración -->
+        <div class="grupo-campo">
+          <div class="checkbox-grupo">
+            <input type="checkbox" id="requiereCalibracion" name="requiereCalibracion">
+            <label for="requiereCalibracion">
+              <i class="fas fa-tools"></i>
+              Este objeto requiere calibración
+            </label>
+          </div>
+          
+          <div id="campos-calibracion" class="campos-calibracion">
+            <div class="formulario-grid">
+              <div class="grupo-campo">
+                <label for="fechaUltimaCalibracion">Fecha Última Calibración</label>
+                <input type="date" id="fechaUltimaCalibracion" name="fechaUltimaCalibracion">
+              </div>
+              
+              <div class="grupo-campo">
+                <label for="fechaProximaCalibracion">Fecha Próxima Calibración</label>
+                <input type="date" id="fechaProximaCalibracion" name="fechaProximaCalibracion">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Observaciones -->
+        <div class="grupo-campo">
+          <label for="observaciones">Observaciones</label>
+          <textarea id="observaciones" name="observaciones" 
+                    placeholder="Comentarios adicionales, condiciones especiales, etc."></textarea>
+          <div class="ayuda-texto">
+            <i class="fas fa-info-circle"></i>
+            Información adicional sobre el objeto
+          </div>
+        </div>
+
+        <!-- Sección de Fotografías -->
+        <div class="seccion-fotos">
+          <h3><i class="fas fa-camera"></i> Fotografías del Objeto</h3>
+          <p>Puede agregar hasta 3 fotografías (etiqueta de inventario, estado físico, etc.)</p>
+          
+          <div class="zona-subida" onclick="document.getElementById('input-fotos').click()">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <h4>Haga clic para seleccionar fotos</h4>
+            <p>O arrastre y suelte archivos aquí</p>
+            <small>Formatos: JPG, PNG | Tamaño máximo: 5MB por foto</small>
+          </div>
+          
+          <input type="file" id="input-fotos" accept="image/*" multiple style="display: none;">
+          
+          <div id="previsualizacion-fotos" class="previsualizacion-fotos"></div>
+        </div>
+
+        <!-- Botones del Formulario -->
+        <div class="botones-formulario">
+          <button type="button" class="btn btn-secundario" onclick="limpiarFormulario()">
+            <i class="fas fa-eraser"></i>
+            Limpiar Formulario
+          </button>
+          
+          <button type="submit" class="btn btn-primario" id="btn-guardar">
+            <i class="fas fa-save"></i>
+            Guardar Objeto
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Variables globales
+    let fotosSeleccionadas = [];
+    const MAX_FOTOS = 3;
+    const MAX_TAMANO_ARCHIVO = 5 * 1024 * 1024; // 5MB
+
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', function() {
+      configurarEventListeners();
+      configurarValidacionTiempoReal();
+    });
+
+    /**
+     * Configura todos los event listeners
+     */
+    function configurarEventListeners() {
+      // Checkbox de calibración
+      document.getElementById('requiereCalibracion').addEventListener('change', toggleCamposCalibracion);
+      
+      // Input de fotos
+      document.getElementById('input-fotos').addEventListener('change', manejarSeleccionFotos);
+      
+      // Drag and drop para fotos
+      const zonaSubida = document.querySelector('.zona-subida');
+      zonaSubida.addEventListener('dragover', manejarDragOver);
+      zonaSubida.addEventListener('drop', manejarDrop);
+      
+      // Formulario
+      document.getElementById('formulario-agregar-objeto').addEventListener('submit', enviarFormulario);
+      
+      // Auto-formatear código de inventario
+      document.getElementById('codigoInventario').addEventListener('input', formatearCodigoInventario);
+    }
+
+    /**
+     * Configura la validación en tiempo real
+     */
+    function configurarValidacionTiempoReal() {
+      const camposRequeridos = ['nombre', 'codigoInventario', 'ubicacionActual'];
+      
+      camposRequeridos.forEach(campo => {
+        document.getElementById(campo).addEventListener('blur', validarCampo);
+        document.getElementById(campo).addEventListener('input', limpiarErrorCampo);
+      });
+    }
+
+    /**
+     * Muestra/oculta los campos de calibración
+     */
+    function toggleCamposCalibracion() {
+      const checkbox = document.getElementById('requiereCalibracion');
+      const campos = document.getElementById('campos-calibracion');
+      
+      if (checkbox.checked) {
+        campos.classList.add('activo');
+        // Establecer fecha actual como default para última calibración
+        const hoy = new Date().toISOString().split('T')[0];
+        document.getElementById('fechaUltimaCalibracion').value = hoy;
+      } else {
+        campos.classList.remove('activo');
+        // Limpiar campos de calibración
+        document.getElementById('fechaUltimaCalibracion').value = '';
+        document.getElementById('fechaProximaCalibracion').value = '';
+      }
+    }
+
+    /**
+     * Formatea automáticamente el código de inventario
+     */
+    function formatearCodigoInventario(evento) {
+      let valor = evento.target.value.toUpperCase();
+      // Remover caracteres no válidos
+      valor = valor.replace(/[^A-Z0-9-]/g, '');
+      evento.target.value = valor;
+    }
+
+    /**
+     * Valida un campo específico
+     */
+    function validarCampo(evento) {
+      const campo = evento.target;
+      const valor = campo.value.trim();
+      
+      // Remover estilos de error previos
+      campo.style.borderColor = '';
+      
+      if (campo.hasAttribute('required') && !valor) {
+        mostrarErrorCampo(campo, 'Este campo es obligatorio');
+        return false;
+      }
+      
+      // Validaciones específicas
+      if (campo.id === 'codigoInventario') {
+        if (valor && !validarFormatoCodigoInventario(valor)) {
+          mostrarErrorCampo(campo, 'Formato incorrecto. Ejemplo: EM-AGE-001-0824');
+          return false;
+        }
+      }
+      
+      return true;
+    }
+
+    /**
+     * Valida el formato del código de inventario
+     */
+    function validarFormatoCodigoInventario(codigo) {
+      // Formato: PREFIJO-AGE-NNN-MMAA
+      const patron = /^[A-Z]+-AGE-\d{3}-\d{4}$/;
+      return patron.test(codigo);
+    }
+
+    /**
+     * Muestra error en un campo específico
+     */
+    function mostrarErrorCampo(campo, mensaje) {
+      campo.style.borderColor = '#e74c3c';
+      // Crear o actualizar mensaje de error
+      let mensajeError = campo.parentNode.querySelector('.mensaje-error-campo');
+      if (!mensajeError) {
+        mensajeError = document.createElement('div');
+        mensajeError.className = 'mensaje-error-campo';
+        mensajeError.style.color = '#e74c3c';
+        mensajeError.style.fontSize = '0.85rem';
+        mensajeError.style.marginTop = '5px';
+        campo.parentNode.appendChild(mensajeError);
+      }
+      mensajeError.textContent = mensaje;
+    }
+
+    /**
+     * Limpia el error de un campo
+     */
+    function limpiarErrorCampo(evento) {
+      const campo = evento.target;
+      campo.style.borderColor = '';
+      const mensajeError = campo.parentNode.querySelector('.mensaje-error-campo');
+      if (mensajeError) {
+        mensajeError.remove();
+      }
+    }
+
+    /**
+     * Maneja la selección de fotos
+     */
+    function manejarSeleccionFotos(evento) {
+      const archivos = Array.from(evento.target.files);
+      procesarArchivos(archivos);
+    }
+
+    /**
+     * Maneja el drag over para drag and drop
+     */
+    function manejarDragOver(evento) {
+      evento.preventDefault();
+      evento.stopPropagation();
+      evento.target.style.backgroundColor = '#e3f2fd';
+    }
+
+    /**
+     * Maneja el drop de archivos
+     */
+    function manejarDrop(evento) {
+      evento.preventDefault();
+      evento.stopPropagation();
+      evento.target.style.backgroundColor = '';
+      
+      const archivos = Array.from(evento.dataTransfer.files);
+      procesarArchivos(archivos);
+    }
+
+    /**
+     * Procesa los archivos seleccionados
+     */
+    function procesarArchivos(archivos) {
+      const archivosImagen = archivos.filter(archivo => archivo.type.startsWith('image/'));
+      
+      if (archivosImagen.length === 0) {
+        mostrarMensajeError('Por favor seleccione solo archivos de imagen (JPG, PNG)');
+        return;
+      }
+      
+      if (fotosSeleccionadas.length + archivosImagen.length > MAX_FOTOS) {
+        mostrarMensajeError(`Máximo ${MAX_FOTOS} fotos permitidas`);
+        return;
+      }
+      
+      archivosImagen.forEach(archivo => {
+        if (archivo.size > MAX_TAMANO_ARCHIVO) {
+          mostrarMensajeError(`El archivo ${archivo.name} es demasiado grande (máximo 5MB)`);
+          return;
+        }
+        
+        agregarFoto(archivo);
+      });
+    }
+
+    /**
+     * Agrega una foto a la lista
+     */
+    function agregarFoto(archivo) {
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        const foto = {
+          archivo: archivo,
+          dataUrl: e.target.result,
+          id: Date.now() + Math.random()
+        };
+        
+        fotosSeleccionadas.push(foto);
+        actualizarVisualizacionFotos();
+      };
+      
+      reader.readAsDataURL(archivo);
+    }
+
+    /**
+     * Actualiza la visualización de fotos
+     */
+    function actualizarVisualizacionFotos() {
+      const contenedor = document.getElementById('previsualizacion-fotos');
+      contenedor.innerHTML = '';
+      
+      fotosSeleccionadas.forEach(foto => {
+        const divFoto = document.createElement('div');
+        divFoto.className = 'foto-preview';
+        divFoto.innerHTML = `
+          <img src="${foto.dataUrl}" alt="Vista previa">
+          <button type="button" class="btn-eliminar-foto" onclick="eliminarFoto(${foto.id})">
+            <i class="fas fa-times"></i>
+          </button>
+        `;
+        contenedor.appendChild(divFoto);
+      });
+    }
+
+    /**
+     * Elimina una foto de la lista
+     */
+    function eliminarFoto(fotoId) {
+      fotosSeleccionadas = fotosSeleccionadas.filter(foto => foto.id !== fotoId);
+      actualizarVisualizacionFotos();
+    }
+
+    /**
+     * Envía el formulario
+     */
+    function enviarFormulario(evento) {
+      evento.preventDefault();
+      
+      // Validar formulario
+      if (!validarFormulario()) {
+        return;
+      }
+      
+      // Mostrar indicador de carga
+      mostrarCargando(true);
+      
+      // Recopilar datos del formulario
+      const datosFormulario = recopilarDatosFormulario();
+      
+      // Simular envío (en producción sería google.script.run.agregarObjetoInventario)
+      setTimeout(() => {
+        // Simular éxito
+        mostrarCargando(false);
+        mostrarMensajeExito('Objeto agregado exitosamente');
+        
+        // Opcional: limpiar formulario después de unos segundos
+        setTimeout(() => {
+          if (confirm('¿Desea agregar otro objeto?')) {
+            limpiarFormulario();
+          } else {
+            window.location.href = '?accion=dashboard';
+          }
+        }, 2000);
+        
+      }, 2000);
+    }
+
+    /**
+     * Valida todo el formulario
+     */
+    function validarFormulario() {
+      let esValido = true;
+      const camposRequeridos = ['nombre', 'codigoInventario', 'ubicacionActual'];
+      
+      camposRequeridos.forEach(campoId => {
+        const campo = document.getElementById(campoId);
+        if (!validarCampo({ target: campo })) {
+          esValido = false;
+        }
+      });
+      
+      // Validar fechas de calibración si aplica
+      const requiereCalibracion = document.getElementById('requiereCalibracion').checked;
+      if (requiereCalibracion) {
+        const fechaUltima = document.getElementById('fechaUltimaCalibracion').value;
+        const fechaProxima = document.getElementById('fechaProximaCalibracion').value;
+        
+        if (fechaUltima && fechaProxima && new Date(fechaProxima) <= new Date(fechaUltima)) {
+          mostrarMensajeError('La fecha de próxima calibración debe ser posterior a la última calibración');
+          esValido = false;
+        }
+      }
+      
+      return esValido;
+    }
+
+    /**
+     * Recopila todos los datos del formulario
+     */
+    function recopilarDatosFormulario() {
+      const form = document.getElementById('formulario-agregar-objeto');
+      const formData = new FormData(form);
+      
+      const datos = {
+        accion: 'agregar_objeto',
+        nombre: formData.get('nombre'),
+        codigoInventario: formData.get('codigoInventario'),
+        numeroSerial: formData.get('numeroSerial') || '',
+        estado: formData.get('estado'),
+        ubicacionActual: formData.get('ubicacionActual'),
+        requiereCalibracion: document.getElementById('requiereCalibracion').checked,
+        fechaUltimaCalibracion: formData.get('fechaUltimaCalibracion') || null,
+        fechaProximaCalibracion: formData.get('fechaProximaCalibracion') || null,
+        observaciones: formData.get('observaciones') || '',
+        fotos: fotosSeleccionadas.map(foto => ({
+          nombre: foto.archivo.name,
+          tipo: foto.archivo.type,
+          tamaño: foto.archivo.size,
+          dataUrl: foto.dataUrl
+        }))
+      };
+      
+      return datos;
+    }
+
+    /**
+     * Muestra el indicador de carga
+     */
+    function mostrarCargando(mostrar) {
+      const indicador = document.getElementById('indicador-cargando');
+      const btnGuardar = document.getElementById('btn-guardar');
+      
+      if (mostrar) {
+        indicador.style.display = 'block';
+        btnGuardar.disabled = true;
+        btnGuardar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+      } else {
+        indicador.style.display = 'none';
+        btnGuardar.disabled = false;
+        btnGuardar.innerHTML = '<i class="fas fa-save"></i> Guardar Objeto';
+      }
+    }
+
+    /**
+     * Muestra mensaje de éxito
+     */
+    function mostrarMensajeExito(mensaje) {
+      const div = document.getElementById('mensaje-exito');
+      div.innerHTML = `<i class="fas fa-check-circle"></i> ${mensaje}`;
+      div.style.display = 'block';
+      
+      // Scroll to top para mostrar el mensaje
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // Ocultar después de 5 segundos
+      setTimeout(() => {
+        div.style.display = 'none';
+      }, 5000);
+    }
+
+    /**
+     * Muestra mensaje de error
+     */
+    function mostrarMensajeError(mensaje) {
+      const div = document.getElementById('mensaje-error');
+      document.getElementById('texto-error').textContent = mensaje;
+      div.style.display = 'block';
+      
+      // Scroll to top para mostrar el mensaje
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // Ocultar después de 8 segundos
+      setTimeout(() => {
+        div.style.display = 'none';
+      }, 8000);
+    }
+
+    /**
+     * Limpia el formulario
+     */
+    function limpiarFormulario() {
+      if (confirm('¿Está seguro de que desea limpiar el formulario?')) {
+        document.getElementById('formulario-agregar-objeto').reset();
+        fotosSeleccionadas = [];
+        actualizarVisualizacionFotos();
+        document.getElementById('campos-calibracion').classList.remove('activo');
+        
+        // Limpiar mensajes de error
+        document.querySelectorAll('.mensaje-error-campo').forEach(el => el.remove());
+        document.querySelectorAll('input, select, textarea').forEach(el => {
+          el.style.borderColor = '';
+        });
+        
+        // Ocultar mensajes
+        document.getElementById('mensaje-exito').style.display = 'none';
+        document.getElementById('mensaje-error').style.display = 'none';
+      }
+    }
+
+    /**
+     * Genera código de inventario sugerido
+     */
+    function sugerirCodigoInventario() {
+      // Esta función podría llamar al backend para obtener el siguiente número secuencial
+      // Por ahora, mostrar ayuda
+      alert('Consulte la guía de nomenclatura para generar el código correcto.\n\nFormato: TIPO-AGE-NNN-MMAA\nEjemplo: EM-AGE-001-0824');
+    }
+
+    // Agregar botón de ayuda para código de inventario
+    document.addEventListener('DOMContentLoaded', function() {
+      const codigoInput = document.getElementById('codigoInventario');
+      const ayudaDiv = codigoInput.parentNode.querySelector('.ayuda-texto');
+      
+      const btnAyuda = document.createElement('button');
+      btnAyuda.type = 'button';
+      btnAyuda.innerHTML = '<i class="fas fa-question-circle"></i>';
+      btnAyuda.style.cssText = `
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #3498db;
+        cursor: pointer;
+        font-size: 1.2rem;
+      `;
+      btnAyuda.onclick = sugerirCodigoInventario;
+      
+      // Hacer el contenedor del input relativo
+      codigoInput.parentNode.style.position = 'relative';
+      codigoInput.parentNode.appendChild(btnAyuda);
+    });
+  </script>
+</body>
+</html>
